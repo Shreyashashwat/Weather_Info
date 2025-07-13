@@ -1,0 +1,7 @@
+.weather{
+    place-self: center;
+    padding:20px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #7cb8e7, #0072ff);
+    
+}
