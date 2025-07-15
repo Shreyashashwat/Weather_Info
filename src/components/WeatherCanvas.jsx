@@ -99,8 +99,7 @@ const WeatherCanvas = ({ weather }) => {
 
       const animate = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+       
         particles.forEach((cloud) => {
           drawCloud(cloud.x, cloud.y);
           cloud.x += cloud.speed;
