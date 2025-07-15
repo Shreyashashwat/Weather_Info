@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './weather.css'
 import humidity from '../assets/humidity.png'
 import wind from '../assets/wind.png'
+import WeatherCanvas from './WeatherCanvas.jsx';
 
 const Weather = () => {
   const[weatherData, setWeatherData] = useState(false);
@@ -29,10 +30,7 @@ const Weather = () => {
       console.error("Error fetching weather data:", error);
     }
   }
-  useEffect(() => {
-    Search('London'); // Default search on component mount  
-    
-  }, []); 
+  
   const [city, setCity] = useState('');
   const handleClick = () => {
   if (city.trim() !== '') {
@@ -43,7 +41,9 @@ const Weather = () => {
 
 
   return (
-   
+    <>
+
+    {weatherData && <WeatherCanvas weather={weatherData.condition} />}
     <div className={`weather ${weatherData ? weatherData.condition : ''}`}>
        <div className="searchbar flex gap-2   ">
         {/* <div className='text-slate-800'>weather</div> */}
@@ -57,7 +57,8 @@ const Weather = () => {
       
 
        </div>
-     
+        {weatherData &&  (
+          <>
        <div className='flex flex-col items-center justify-center  mt-4'>
          
           <img src={`https://openweathermap.org/img/wn/${weatherData.icon_url}@2x.png`} alt=""  className='w-40 '/>
@@ -66,12 +67,12 @@ const Weather = () => {
 
         </div>
         <div  className='flex justify-between items-center mt-10 gap-4 mb-6'>
-        <div className='flex items-center gap-2'>
-          <img src={humidity} alt="" className='w-8' />
-          <div>
-            <p className='text-lg font-medium'>{weatherData.humidity}</p>
-            <p className='text-sm'>Humidity</p>
-          </div>
+          <div className='flex items-center gap-2'>
+            <img src={humidity} alt="" className='w-8' />
+              <div>
+                <p className='text-lg font-medium'>{weatherData.humidity}</p>
+                <p className='text-sm'>Humidity</p>
+              </div>
         </div>
         <div className='flex items-center gap-2'>
          
@@ -82,9 +83,13 @@ const Weather = () => {
             <p className='text-sm'>Wind</p>
           </div>
         </div>
+       
         </div>
-      
+      </>
+        )}
     </div>
+     
+    </>
   )
 }
 
